@@ -6,8 +6,10 @@ public class main {
 	private static String output = new File("").getAbsolutePath().concat("/src/files/output.txt");
 
 	public static void main(String[] args) {
-		ComaSeparated.deleteSpace(input,input);
-		ComaSeparated.comaToLatex(input, output);
+		System.out.println("Path du projet :" + new File("").getAbsolutePath());
+		ComaSeparated.deleteThing(input,input," ");
+		//ComaSeparated.comaToLatex(input, output);
+		ComaSeparated.comaToSpace(input, output);
 
 	}
 

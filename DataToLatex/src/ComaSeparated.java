@@ -10,10 +10,14 @@ import java.util.Arrays;
 public class ComaSeparated {
 
 	public static void comaToLatex(String input,String output){
-		ArrayList<String> strList = readFile(input);
+		ArrayList<String> strList = readFileLatex(input);
 		writeTo(strList,output);
 }
 
+	public static void comaToSpace(String input,String output){
+		ArrayList<String> strList = readFileSpace(input);
+		writeTo(strList,output);
+}
 	private static void writeTo(ArrayList<String> strList, String output) {
 		try(BufferedWriter out = new BufferedWriter(new FileWriter(output));){
 			for(String line : strList){
@@ -28,7 +32,7 @@ public class ComaSeparated {
 		
 	}
 
-	private static ArrayList<String> readFile(String input) {
+	private static ArrayList<String> readFileLatex(String input) {
 		ArrayList<String> linesList = new ArrayList<String>();
 		try(BufferedReader br = new BufferedReader(new FileReader(input));){
 			String line = br.readLine();
@@ -51,17 +55,42 @@ public class ComaSeparated {
 		}
 		return linesList;
 	}
+	
+	private static ArrayList<String> readFileSpace(String input) {
+		ArrayList<String> linesList = new ArrayList<String>();
+		try(BufferedReader br = new BufferedReader(new FileReader(input));){
+			String line = br.readLine();
+			while(line != null){
+				ArrayList<String> linesplit = new ArrayList<String>(Arrays.asList(line.split(",")));
+				String newLine =linesplit.get(0);
+				for(int i=1; i<linesplit.size();i++){
+					newLine = newLine+" "+linesplit.get(i);
+				}
+				
+				linesList.add(newLine);
+				line = br.readLine();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return linesList;
+	}
+	
 	/**
 	 * This function delete space if needed(bad copy-pasta from strange files for example)
 	 * @param input
 	 * @param output
 	 */
-	public static void deleteSpace(String input,String output){
+	public static void deleteThing(String input,String output,String things){
 		ArrayList<String> linesList = new ArrayList<String>();
 		try(BufferedReader br = new BufferedReader(new FileReader(input));){
 			String line = br.readLine();
 			while(line != null){
-				ArrayList<String> linesplit = new ArrayList<String>(Arrays.asList(line.split(" ")));
+				ArrayList<String> linesplit = new ArrayList<String>(Arrays.asList(line.split(things)));
 				String newLine =linesplit.get(0);
 				for(int i=1; i<linesplit.size();i++){
 					newLine = newLine+linesplit.get(i);
